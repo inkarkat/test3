@@ -3,7 +3,7 @@
 printUsage()
 {
     cat <<HELPTEXT
-This is a test command.
+This is a frobnizer.
 HELPTEXT
     echo
     printf 'Usage: %q %s\n' "$(basename "$1")" '[-f|--foo bar] [--] [FILE ...] [-?|-h|--help]'
