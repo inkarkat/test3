@@ -1,0 +1,23 @@
+#!/bin/bash
+
+printUsage()
+{
+    cat <<HELPTEXT
+This is a test command.
+HELPTEXT
+    echo
+    printf 'Usage: %q %s\n' "$(basename "$1")" '[-f|--foo bar] [--] [FILE ...] [-?|-h|--help]'
+}
+
+while [ $# -ne 0 ]
+do
+    case "$1" in
+	--help|-h|-\?)	shift; printUsage "$0"; exit 0;;
+	--foo|-f)	shift; [ "$1" = bar ] || { echo "ERROR: --foo requires argument \"bar\"!"; echo; printUsage "$0"; exit 2; } >&2; shift;;
+	--)		break;;
+	-*)		{ echo "ERROR: Unknown option \"$1\"!"; echo; printUsage "$0"; } >&2; exit 2;;
+	*)		break;;
+    esac
+done
+IFS=' '
+printf 'Remaining arguments: %s\n' "$*"
